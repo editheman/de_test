@@ -15,11 +15,13 @@ jobs:
           fetch-depth: 0
 
       # 2. Add the target repository
-      - name: Add target remote
+      - name: Push to GitLab
+        env:
+          GITLAB_TOKEN: ${{ secrets.GITLAB_ACCESS_TOKEN }}
         run: |
-          git remote add target "https://${{ secrets.GITLAB_ACCESS_TOKEN }}@gitlab.com/editheman/de_test.git"
-
-      # 3. Push everything (branches & tags) unmodified
-      - name: Mirror push
-        run: |
+          # Create GitLab URL with token
+          GITLAB_URL="https://oauth2:${GITLAB_TOKEN}@gitlab.com/editheman/de_test.git"
+          
+          # Add target and push
+          git remote add target "${GITLAB_URL}"
           git push target --mirror
