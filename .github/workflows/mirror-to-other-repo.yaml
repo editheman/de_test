@@ -18,7 +18,7 @@ jobs:
       - name: Add target remote
         run: |
           git remote add target \
-            https://x-access-token:${{ secrets.GITLAB_ACCESS_TOKEN }}@gitlab.com:editheman/de_test.git
+            https://x-access-token:${{ secrets.GITLAB_ACCESS_TOKEN }}@git@gitlab.com:editheman/de_test.git
 
       # 3. Push everything (branches & tags) unmodified
       - name: Mirror push
