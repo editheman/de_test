@@ -19,7 +19,11 @@ jobs:
         run: |
           git remote add target "https://${{ secrets.GITLAB_ACCESS_TOKEN }}@gitlab.com/editheman/de_test.git"
 
-      # 3. Push everything (branches & tags) unmodified
-      - name: Mirror push
+      # 3. Push branches and tags (without remote tracking refs)
+      - name: Push to target
         run: |
-          git push target --mirror
+          # Push all local branches with force
+          git push --force target "refs/heads/*:refs/heads/*"
+          
+          # Push all tags
+          git push --force target "refs/tags/*:refs/tags/*"
